@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://biw52melumc2s"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_05ys0"]
+[ext_resource type="PackedScene" uid="uid://cp13vvje3k8yl" path="res://player.tscn" id="1_s8rg6"]
+[ext_resource type="PackedScene" uid="uid://c61tkp0k2kjuh" path="res://tile_map.tscn" id="2_poctt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a74px"]
+size = Vector2(16, 208)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_05ys0")
+
+[node name="player" parent="." instance=ExtResource("1_s8rg6")]
+position = Vector2(400, 616)
+
+[node name="TileMap" parent="." instance=ExtResource("2_poctt")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(960, 816)
+shape = SubResource("RectangleShape2D_a74px")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
